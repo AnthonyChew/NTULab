@@ -1,0 +1,2 @@
+
+                printf("Total: %d", total);
