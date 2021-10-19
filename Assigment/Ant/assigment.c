@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 
 #define true 0
 #define false !true
@@ -93,17 +94,14 @@ void listNameCards(struct NameCard allNameCards[5], int *cardsCount)
     }
     else
     {
+        printf("%d\n" , *cardsCount);
         //Loop through all index of allCards
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i <=  *cardsCount; i++)
         {
-            //If all the input is default don't show
-            if (allNameCards[i].nameCardID != 0 && allNameCards[i].personName != "" && allNameCards[i].companyName != "")
-            {
                 printf("nameCardID: %d\n"
                        "personName: %s\n"
                        "companyName: %s\n",
                        allNameCards[i].nameCardID, allNameCards[i].personName, allNameCards[i].companyName);
-            }
         }
     }
 }
@@ -116,16 +114,16 @@ int addNameCard(struct NameCard allNameCards[5], int *cardCount)
 
     //Ask for user input
     printf("Enter nameCardID:\n");
-    scanf("%d", cardID);
+    scanf("%d", &cardID);
 
     printf("Enter personName:\n");
-    scanf("%s", &personName[20]);
+    scanf(" %[^\n]s", personName);
 
     printf("Enter companyName:\n");
-    scanf("%s", &companyName[20]);
-
+    scanf(" %[^\n]s", companyName);
+    
     //If card less than 4
-    if (cardCount <= 4)
+    if (*cardCount <= 4)
     {
         //Loop through all index of allCards
         for (int i = 0; i < 5; i++)
@@ -141,17 +139,20 @@ int addNameCard(struct NameCard allNameCards[5], int *cardCount)
         //If card not exist
         if (cardExistFlag == false)
         {
+            //check is card bigger or smaller than card
             allNameCards[*cardCount].nameCardID = cardID;
 
-            *allNameCards[*cardCount].personName = personName[20];
+            strcpy(allNameCards[*cardCount].personName ,personName);
+            
+            strcpy(allNameCards[*cardCount].companyName ,companyName);
 
-            *allNameCards[*cardCount].companyName = companyName[20];
-
+            printf("The name card has been added successfully\n");
             return true;
         }
         //Else reduce count to the previous and return false
         else
         {
+            printf("The nameCardID has already existed\n");
             *cardCount -= 1;
             return false;
         }
