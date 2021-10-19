@@ -3,29 +3,11 @@
 
 int main()
 {
-    char userChar;
-    printf("Enter a character:\n");
+    int number;
+    int *p;
 
-    scanf("%c", &userChar);
-
-    if(userChar >= 48 && userChar <= 57)
-    {
-        printf("Digit");
-    }
-    else if (userChar >= 65 && userChar <= 90)
-    {
-        printf("Upper case letter");
-    }    
-    else if (userChar >= 97 && userChar <= 122)
-    {
-        printf("Lower case letter");
-    }
-    else
-    {
-        printf("Other character");
-    }
-    
-    
+    p = &number;
+    printf("%d,%d,%d,%s,%d",number,&number,p,&p,*p);
    
     return 0;
 }
