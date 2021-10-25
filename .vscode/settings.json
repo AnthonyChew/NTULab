@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "stdio.h": "c",
-        "allEvenDigits.C": "cpp"
+        "allEvenDigits.C": "cpp",
+        "string.h": "c"
     }
 }

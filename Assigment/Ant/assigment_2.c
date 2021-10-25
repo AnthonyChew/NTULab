@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
-#include <stdlib.h>
 
 #define true 0
 #define false !true
@@ -87,12 +86,9 @@ int main()
 //Function to ask input from user
 void ChoiceFromUser(int *userChoice)
 {
-    char tempBuffer[9999];
-
     printf("Enter your choice: \n");
 
-    fgets(tempBuffer,9999,stdin);
-    *userChoice = atoi(tempBuffer);
+    scanf("%d", userChoice);
 }
 
 //List all the card in struct array
@@ -120,20 +116,17 @@ int AddNameCard(struct NameCard allNameCards[5], int *cardsCount)
 {
     *cardsCount += 1;                     //current card amount
     int cardID, cardExistFlag = false;    // CardID for user input, Card Exist Flag to check does card exist
-    char personName[20], companyName[20], *p , tempCardBuffer[9999]; // PersonName and CompanyName for user input
+    char personName[20], companyName[20]; // PersonName and CompanyName for user input
 
     //Ask for user input
     printf("Enter nameCardID:\n");
-    fgets(tempCardBuffer, 9999,stdin);
-    cardID = atoi(tempCardBuffer);
-    
+    scanf("%d", &cardID);
+
     printf("Enter personName:\n");
-    fgets(personName, 20,stdin);
-    if(p= strchr(personName,'\n')) *p = '\0'; // replace '\n'
+    scanf(" %[^\n]s", personName);
 
     printf("Enter companyName:\n");
-    fgets(companyName, 20,stdin);
-    if(p= strchr(companyName,'\n')) *p = '\0'; // replace '\n'
+    scanf(" %[^\n]s", companyName);
 
     //If card less than 4
     if (*cardsCount <= 4)
@@ -189,13 +182,12 @@ int AddNameCard(struct NameCard allNameCards[5], int *cardsCount)
 int RemoveNameCard(struct NameCard allNameCards[5], int *cardsCount)
 {
     int cardID;                                         // CardID for user input, Card Exist Flag to check does card exist
-    char personName[20], tempChar[20] , *p; // PersonName and CompanyName for user input
+    char personName[20], companyName[20], tempChar[20]; // PersonName and CompanyName for user input
 
     struct NameCard defualtNameCard = {99999, "", ""};
     //Ask for user input
     printf("Enter personName:\n");
-    fgets(personName, 20,stdin);
-    if(p = strchr(personName , '\n'))*p = '\0';
+    scanf(" %[^\n]s", personName);
 
     LowerAllChar(personName);
 
@@ -209,7 +201,7 @@ int RemoveNameCard(struct NameCard allNameCards[5], int *cardsCount)
 
             LowerAllChar(tempChar);
 
-            //If any duplicated NameCardID
+            //If any same NameCardID
             if (strcmp(tempChar, personName) == true)
             {
                 printf("The name card is removed\n");
@@ -248,12 +240,12 @@ int RemoveNameCard(struct NameCard allNameCards[5], int *cardsCount)
 int GetNameCard(struct NameCard allNameCards[5], int *cardsCount)
 {
     int cardID;                                         // CardID for user input, Card Exist Flag to check does card exist
-    char personName[20], tempChar[20],*p; // PersonName and CompanyName for user input
+    char personName[20], companyName[20], tempChar[20]; // PersonName and CompanyName for user input
 
+    struct NameCard defualtNameCard = {99999, "", ""};
     //Ask for user input
     printf("Enter personName:\n");
-    fgets(personName,20,stdin);
-    if(p=strchr(personName,'\n')) *p = '\0';
+    scanf(" %[^\n]s", personName);
 
     LowerAllChar(personName);
 
@@ -267,7 +259,7 @@ int GetNameCard(struct NameCard allNameCards[5], int *cardsCount)
 
             LowerAllChar(tempChar);
 
-            //If any duplicated NameCardID
+            //If any same NameCardID
             if (strcmp(tempChar, personName) == true)
             {
                 printf("The target person name is found\n");
@@ -334,3 +326,4 @@ void SortById(struct NameCard allNameCards[5], int *cardsCount)
         }
     }
 }
+	/*end_edit*/
