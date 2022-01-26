@@ -118,22 +118,26 @@ int split(ListNode *cur, ListNode **ptrEvenList,ListNode **ptrOddList)
     {
         ListNode *newNode = NULL;
 
+        //Odd
         if(count % 2 != 0)
         {
-            
+            //malloc update item
             newNode = malloc(sizeof(ListNode));
             newNode->item = cur->item;
             newNode->next = NULL;
 
+            //Update head pointer
             if(oddTemp == NULL)
             {
                 *ptrOddList = newNode;
             }
             else
             {
+                //Update previous link to new node
                 oddTemp->next = newNode;
             }
 
+            //Update oddTemp to next node
             oddTemp = newNode;
         }
         else

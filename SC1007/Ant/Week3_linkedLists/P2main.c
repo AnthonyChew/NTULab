@@ -106,6 +106,21 @@ void deleteList2(LinkedList *ll){
 	ll->size = 0;
 }
 
-void moveEvenItemsToBack(LinkedList *ll){
+void moveEvenItemsToBack(LinkedList *ll)
+{
+    ListNode *cur = ll->head;
+    ListNode *pre = NULL;
 
+    while (cur != NULL)
+    {
+        if(cur->item % 2 != 0)
+        {
+            if (pre == NULL)
+            {
+                
+            }
+            
+        }
+    }
+    
 }
