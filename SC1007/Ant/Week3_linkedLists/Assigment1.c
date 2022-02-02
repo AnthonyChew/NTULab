@@ -63,31 +63,101 @@ void deleteList(ListNode **ptrHead){
 void triPartition(ListNode** head, int pivot){
 
 // Write your code here
-	ListNode *pivotPtr , *cur;
-
+	ListNode *pivotPtr , *firstPartPtr , *thridPartPtr , *cur , *temp , *tempPivotPtr , *tempThridPtr ;
 	cur = *head;
+	pivotPtr = NULL;
+	firstPartPtr = NULL;
+	thridPartPtr = NULL;
 
-	while(cur->next != NULL)
+	//search for pivot ptr
+	while(cur != NULL)
 	{
-        if(cur->item == pivot)
-        {
-            pivotPtr = cur;
-            break;
-        }
+		if(cur->item == pivot)
+		{
+			pivotPtr = cur;
+			break;
+		}
 
-        cur = cur->next;
+		cur	 = cur->next;
 	}
 
+	//Set curr to head
 	cur = *head;
-
-    while(cur->next != NULL)
+	tempPivotPtr = pivotPtr; // temp pivot ptr for traverse
+	
+	//main loop
+	while (cur != NULL)
 	{
-        if(cur->item < pivot)
-        {
-            pivotPtr = cur;
-            break;
-        }
+		temp = cur->next; //temp to next in case current copy change
 
-        cur = cur->next;
+		//if smaller than pivot
+		if(cur->item < pivot)		
+		{
+			//if first node empty set head, head.next to pivot and copy of first node 
+			if(firstPartPtr == NULL)
+			{
+				firstPartPtr = cur;
+				firstPartPtr->next = pivotPtr;
+				*head = firstPartPtr;
+			}
+			//set curhead.next == cur, traverse, set next to pivot
+			else
+			{
+				firstPartPtr->next = cur;
+				firstPartPtr = firstPartPtr->next;
+				firstPartPtr->next = pivotPtr;
+			}
+		}
+		//if bigger
+		else
+		if(pivot < cur->item)
+		{
+			if(thridPartPtr == NULL)
+			{
+				thridPartPtr = cur;
+				thridPartPtr->next = NULL;
+				tempThridPtr = thridPartPtr;
+			}
+			else
+			{
+				tempThridPtr->next = cur;
+				tempThridPtr = tempThridPtr->next;
+				tempThridPtr->next = NULL;
+			}
+		}
+		//if same as pivot
+		else
+		{
+			if(cur != tempPivotPtr)
+			{
+				tempPivotPtr->next = cur;
+				tempPivotPtr = tempPivotPtr->next;
+			}
+			tempPivotPtr->next = thridPartPtr;
+		}
+		
+		cur	 = temp;
+	}
+
+	//make sure last pivot node point to start of third partition
+
+	//if no smaller num than pivot set head to pivot head
+	if(firstPartPtr == NULL)
+	{
+		*head = pivotPtr;
+	}
+	//if nothing bigger than pivot head set last pivot to tail
+	if(thridPartPtr == NULL)
+	{
+		tempPivotPtr->next = NULL;
+	}
+	if(pivotPtr == NULL)
+	{
+		firstPartPtr->next = thridPartPtr;
+	}
+	else
+	{
+		tempPivotPtr->next = thridPartPtr;
 	}
 }
+
